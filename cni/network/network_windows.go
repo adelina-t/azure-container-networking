@@ -245,6 +245,7 @@ func getPoliciesFromRuntimeCfg(nwCfg *cni.NetworkConfig) []policy.Policy {
 			ExternalPort: uint16(mapping.HostPort),
 			InternalPort: uint16(mapping.ContainerPort),
 			Protocol:     mapping.Protocol,
+			VIP:          mapping.HostIp,
 		})
 
 		policy := policy.Policy{
@@ -268,7 +269,7 @@ func addIPV6EndpointPolicy(nwInfo network.NetworkInfo) (policy.Policy, error) {
 		return eppolicy, fmt.Errorf("network state doesn't have ipv6 subnet")
 	}
 
-    // Everything should be snat'd except podcidr
+	// Everything should be snat'd except podcidr
 	exceptionList := []string{nwInfo.Subnets[1].Prefix.String()}
 	rawPolicy, _ := json.Marshal(&hcsshim.OutboundNatPolicy{
 		Policy:     hcsshim.Policy{Type: hcsshim.OutboundNat},

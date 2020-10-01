@@ -32,6 +32,7 @@ type KVPairPortMapping struct {
 	ExternalPort uint16        `json:"ExternalPort"`
 	InternalPort uint16        `json:"InternalPort"`
 	Protocol     string        `json:"Protocol"`
+	VIP          string        `json:"VIP"`
 }
 
 type KVPairOutBoundNAT struct {
@@ -321,6 +322,7 @@ func GetHcnPortMappingPolicy(policy Policy) (hcn.EndpointPolicy, error) {
 	portMappingPolicySetting := &hcn.PortMappingPolicySetting{
 		InternalPort: dataPortMapping.InternalPort,
 		ExternalPort: dataPortMapping.ExternalPort,
+		VIP:          dataPortMapping.VIP,
 	}
 
 	protocol := strings.ToUpper(strings.TrimSpace(dataPortMapping.Protocol))

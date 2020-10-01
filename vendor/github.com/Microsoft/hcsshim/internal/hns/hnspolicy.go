@@ -25,6 +25,7 @@ type NatPolicy struct {
 	Protocol     string
 	InternalPort uint16
 	ExternalPort uint16
+	VIP          string
 }
 
 type QosPolicy struct {
